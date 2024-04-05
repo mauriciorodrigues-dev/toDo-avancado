@@ -1,77 +1,229 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lista de Tarefas</title>
-  <link rel="stylesheet" href="./assets/css/index.css"/>
-  <link rel="icon" href="data:,">
-  <script src="https://kit.fontawesome.com/fc1d6ae1da.js" crossorigin="anonymous"></script>
-</head>
-<body>
-  <header>
-    <h1><i class="fa fa-tasks"></i> Lista de Manutenção diária</h1>
-  </header>
-  <main>
-    <div class="form-toDo">
-      <div class="grupo">
-        <label for="nome_func">Funcionário <i onclick="iconfunc()" class="fa-solid fa-user-plus"></i></label>
-        <select name="nome_func" id="nome_func">
-          <option selected disabled>Nome do funcionário</option>
-        </select>
-        
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de Tarefas</title>
+    <link rel="stylesheet" href="./assets/css/index.css" />
+    <link rel="icon" href="data:," />
+    <script
+      src="https://kit.fontawesome.com/fc1d6ae1da.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <header>
+      <h1><i class="fa fa-tasks"></i> Lista de Manutenção diária</h1>
+    </header>
+    <main>
+      <div class="form-toDo">
+        <div class="grupo">
+          <label for="nome_func"
+            >Funcionário
+            <i onclick="iconfunc()" class="fa-solid fa-user-plus"></i
+          ></label>
+          <select name="nome_func" id="nome_func">
+            <option selected disabled>Nome do funcionário</option>
+          </select>
+        </div>
+        <div class="grupo">
+          <label for="nome_setor"
+            >Setor <i onclick="iconsetor()" class="fa-solid fa-layer-group"></i
+          ></label>
+          <select name="nome_setor" id="nome_setor">
+            <option selected disabled>Setor</option>
+          </select>
+        </div>
+        <div class="grupo">
+          <label for="tarefa"
+            >Tarefa <i onclick="iconmanut()" class="fa-solid fa-gears"></i
+          ></label>
+          <select name="tarefa" id="tarefa">
+            <option selected disabled>Tarefa</option>
+          </select>
+        </div>
+        <div class="grupo">
+          <label for="data">Data Manutenção</label>
+          <input type="date" />
+        </div>
+        <div class="grupo">
+          <label for="hora_orc">Hora Orçada</label>
+          <input type="text" name="hora-orc" id="hora_orc" />
+        </div>
       </div>
-      <div class="grupo">
-        <label for="nome_setor">Setor <i onclick="iconsetor()" class="fa-solid fa-layer-group"></i></label>
-        <select name="nome_setor" id="nome_setor">
-          <option selected disabled>Setor</option>
-        </select>
-        
+      <div class="botoes">
+        <button id="btnAdicionar">Adicionar Tarefa</button>
+        <button id="btnLimpar">Limpar Tarefa</button>
       </div>
-      <div class="grupo">
-        <label for="tarefa">Tarefa <i onclick="iconmanut()" class="fa-solid fa-gears"></i></label>
-        <select name="tarefa" id="tarefa">
-          <option selected disabled>Tarefa</option>
-        </select>
-        
+      <!-- Tabela de Tarefas -->
+      <div class="tabela-manutencao">
+        <table id="tbManut">
+          <thead>
+            <tr>
+              <th>Funcionário</th>
+              <th>Setor</th>
+              <th>Tarefa</th>
+              <th>Data Manutenção</th>
+              <th>Hora Orçada</th>
+              <th>Hora Real</th>
+              <th>Opções</th>
+            </tr>
+          </thead>
+          <tbody id="tBodyManut"></tbody>
+        </table>
       </div>
-      <div class="grupo">
-        <label for="data">Data Manutenção</label>
-        <input type="date">
-      </div>
-      <div class="grupo">
-        <label for="hora_orc">Hora Orçada</label>
-        <input type="text" name="hora-orc" id="hora_orc">
-      </div>
-      <div class="grupo">
-        <label for="hora_real">Hora Real</label>
-        <input type="text" name="hora-real" id="hora_real">
-      </div>
-      <div class="grupo">
-        <label for="saldo">Saldo Hora Mensal</label>
-        <p id="saldo-hora"><span>350h</span></p>
-      </div>
-    </div>
-    <div class="botoes">
-      <button id="btnAdicionar">Adicionar Tarefa</button>
-      <button id="btnLimpar">Limpar Tarefa</button>
-    </div>
-  </main>
-  <footer></footer>
+    </main>
+    <!-- Modal Funcionário -->
+    <dialog id="modalFuncionario" open>
+      <h1>Cadastro do Funcionário</h1>
 
-  <script src="script.js"></script>
-  <script>
-    function iconfunc() {
-      alert('Vamos Adicionar um Funcionário')
-    }
-    function iconsetor() {
-      alert('Vamos Adicionar um Setor')
-    }
-    function iconmanut() {
-      alert('Vamos Adicionar uma Manutenção')
-    }
+      <h2>Dados Pessoais:</h2>
+      <div class="grupo">
+        <label for="nome">Nome Completo*:</label>
+        <input type="text" name="txtNome" id="nome" required />
+      </div>
+      <button id="btnSalvarFechar">Salvar e Fechar</button>
+    </dialog>
+    <!-- Fim -->
+    <!-- Modal Setor -->
 
+    <!-- Fim -->
+    <!-- Modal Tarefa -->
 
-  </script>
-</body>
+    <!-- Fim -->
+    <footer></footer>
+
+    <script src="script.js"></script>
+    <script>
+      // Variáveis relacionadas ao modal
+      const modalFuncionario = document.getElementById("modalFuncionario");
+      const btnAdicionar = document.getElementById("btnAdicionar");
+      const btnSalvarFechar = document.getElementById("btnSalvarFechar");
+
+      // Array de objetos com os nomes dos funcionários, setores e tarefas
+      const funcionarios = [
+        { nome: "Fabiano da Silva", value: "Fabiano da Silva" },
+        { nome: "João Oliveira", value: "João Oliveira" },
+        { nome: "Maria Souza", value: "Maria Souza" },
+      ];
+      const setores = [
+        { nome: "Acabamento", value: "Acabamento" },
+        { nome: "Montagem", value: "Montagem" },
+        { nome: "Manutenção", value: "Manutenção" },
+      ];
+      const tarefas = [
+        { nome: "Troca de Cabos elétricos", value: "Troca de Cabos elétricos" },
+        { nome: "Substituição de Peças", value: "Substituição de Peças" },
+        { nome: "Manutenção Preventiva", value: "Manutenção Preventiva" },
+      ];
+
+      // Função para limpar os options de um select
+      function limparSelect(select) {
+        while (select.firstChild) {
+          select.removeChild(select.firstChild);
+        }
+      }
+
+      // Função para popular os selects com os arrays de objetos
+      function popularSelects() {
+        const selectFuncionario = document.getElementById("nome_func");
+        const selectSetor = document.getElementById("nome_setor");
+        const selectTarefa = document.getElementById("tarefa");
+
+        // Limpa os options dos selects
+        limparSelect(selectFuncionario);
+        limparSelect(selectSetor);
+        limparSelect(selectTarefa);
+
+        funcionarios.forEach((funcionario) => {
+          const option = document.createElement("option");
+          option.textContent = funcionario.nome;
+          option.value = funcionario.value;
+          selectFuncionario.appendChild(option);
+        });
+
+        setores.forEach((setor) => {
+          const option = document.createElement("option");
+          option.textContent = setor.nome;
+          option.value = setor.value;
+          selectSetor.appendChild(option);
+        });
+
+        tarefas.forEach((tarefa) => {
+          const option = document.createElement("option");
+          option.textContent = tarefa.nome;
+          option.value = tarefa.value;
+          selectTarefa.appendChild(option);
+        });
+      }
+
+      // Chamar a função para popular os selects quando a página carregar
+      window.onload = popularSelects;
+
+      // Adicionar evento de clique ao botão "Adicionar Tarefa"
+      btnAdicionar.addEventListener("click", adicionarTarefa);
+
+      // Função para adicionar tarefa à tabela
+      function adicionarTarefa() {
+        // Obter os valores dos campos do formulário
+        const funcionario = document.getElementById("nome_func").value;
+        const setor = document.getElementById("nome_setor").value;
+        const tarefa = document.getElementById("tarefa").value;
+        const dataManutencao =
+          document.querySelector('input[type="date"]').value;
+        const horaOrcada = document.getElementById("hora_orc").value;
+
+        // Formatando a data para o formato DD/MM/AAAA
+        const partesData = dataManutencao.split("-");
+        const dataFormatada = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
+
+        // Criar uma nova linha na tabela
+        const novaLinha = document.createElement("tr");
+        novaLinha.innerHTML = `
+    <td>${funcionario}</td>
+    <td>${setor}</td>
+    <td>${tarefa}</td>
+    <td>${dataFormatada}</td>
+    <td>${horaOrcada}</td>
+    <td><input type="text" class="hora-real"></td>
+    <td>
+      <button class="check"><i class="fa-solid fa-check"></i></button>
+      <button class="edit"><i class="fa-solid fa-pen"></i></button>
+      <button class="delete"><i class="fa-solid fa-trash-can"></i></button>
+    </td>
+  `;
+
+        // Adicionar a nova linha à tabela
+        const tbody = document.getElementById("tBodyManut");
+        tbody.appendChild(novaLinha);
+      }
+
+      // Adicionar evento de clique ao botão "Salvar e Fechar"
+      btnSalvarFechar.addEventListener("click", function () {
+        // Obtém o valor inserido no campo de nome
+        const nomeFuncionario = document.getElementById("nome").value;
+
+        // Adiciona o funcionário ao array funcionarios se ele não existir
+        if (
+          !funcionarios.some(
+            (funcionario) => funcionario.nome === nomeFuncionario
+          )
+        ) {
+          funcionarios.push({
+            nome: nomeFuncionario,
+            value: nomeFuncionario,
+          });
+        }
+
+        // Fecha o modal
+        modalFuncionario.close();
+
+        // Limpa o campo de nome
+        document.getElementById("nome").value = "";
+
+        // Atualiza os selects com os novos funcionários
+        popularSelects();
+      });
+    </script>
+  </body>
 </html>

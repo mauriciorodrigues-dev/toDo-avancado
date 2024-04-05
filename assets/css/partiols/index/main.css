@@ -32,7 +32,7 @@ PRIMEIRA PARTE - FORMULÁRIO - INÍCIO
 .form-toDo {
   max-width: 144rem;
   margin: auto;
-  height: 20rem;
+  height: 10rem;
   background-color: white;
   display: flex;
   align-items: center;
@@ -49,8 +49,76 @@ PRIMEIRA PARTE - FORMULÁRIO - INÍCIO
   flex: 1;
   padding: 1rem;
 }
-
+/*
+FIM
+*/
 
 /*
-PRIMEIRA PARTE - FORMULÁRIO - FIM
+PRIMEIRA PARTE - BOTÕES - INÍCIO
 */
+.botoes{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+.botoes button{
+  width: 15rem;
+  padding: .7rem;
+  font-size: 1.7rem;
+  cursor: pointer;
+  border-radius: .4rem;
+  outline: none;
+  border: none;
+}
+.botoes button:nth-child(1){
+  background-color: rgb(30, 112, 71);
+}
+.botoes button:nth-child(1):hover{
+  opacity: .8;
+}
+/*
+FIM
+*/
+
+/*
+PRIMEIRA PARTE - TABELA - INÍCIO
+*/
+table {
+  margin-top: 1rem;
+  text-align: center;
+  width: 100%;
+  border: .1rem solid #ccc;
+  border-collapse: collapse;
+  }
+th {
+  color: #3f3c3c;
+  background-color: rgba(219, 202, 202, 0.7);
+  font-weight: bold;
+  padding: .5rem;
+  border: .1rem solid #ccc;
+  /* width: 20rem; */
+  }
+td {
+  padding: .5rem;
+  border: .1rem solid #ccc;
+  }
+
+.tabela-manutencao{
+  max-width: 144rem;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/*
+FIM
+*/
+/* 
+Icon
+check: <i class="fa-solid fa-check"></i>
+edit: <i class="fa-solid fa-pen"></i>
+delete: <i class="fa-solid fa-trash-can"></i>
+*/
+

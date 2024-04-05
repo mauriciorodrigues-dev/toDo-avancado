@@ -1,6 +1,7 @@
 @import "../../assets/css/partiols/index/header.css";
 @import "../../assets/css/partiols/index/main.css";
 @import "../../assets/css/partiols/index/footer.css";
+@import "../../assets/css/partiols/index/modal.css";
 
 * {
   margin: 0;
