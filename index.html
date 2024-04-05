@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Tarefas</title>
+  <link rel="stylesheet" href="./assets/css/index.css"/>
+  <link rel="icon" href="data:,">
+  <script src="https://kit.fontawesome.com/fc1d6ae1da.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header>
+    <h1><i class="fa fa-tasks"></i> Lista de Manutenção diária</h1>
+  </header>
+  <main>
+    <div class="form-toDo">
+      <div class="grupo">
+        <label for="nome_func">Funcionário <i onclick="iconfunc()" class="fa-solid fa-user-plus"></i></label>
+        <select name="nome_func" id="nome_func">
+          <option selected disabled>Nome do funcionário</option>
+        </select>
+        
+      </div>
+      <div class="grupo">
+        <label for="nome_setor">Setor <i onclick="iconsetor()" class="fa-solid fa-layer-group"></i></label>
+        <select name="nome_setor" id="nome_setor">
+          <option selected disabled>Setor</option>
+        </select>
+        
+      </div>
+      <div class="grupo">
+        <label for="tarefa">Tarefa <i onclick="iconmanut()" class="fa-solid fa-gears"></i></label>
+        <select name="tarefa" id="tarefa">
+          <option selected disabled>Tarefa</option>
+        </select>
+        
+      </div>
+      <div class="grupo">
+        <label for="data">Data Manutenção</label>
+        <input type="date">
+      </div>
+      <div class="grupo">
+        <label for="hora_orc">Hora Orçada</label>
+        <input type="text" name="hora-orc" id="hora_orc">
+      </div>
+      <div class="grupo">
+        <label for="hora_real">Hora Real</label>
+        <input type="text" name="hora-real" id="hora_real">
+      </div>
+      <div class="grupo">
+        <label for="saldo">Saldo Hora Mensal</label>
+        <p id="saldo-hora"><span>350h</span></p>
+      </div>
+    </div>
+    <div class="botoes">
+      <button id="btnAdicionar">Adicionar Tarefa</button>
+      <button id="btnLimpar">Limpar Tarefa</button>
+    </div>
+  </main>
+  <footer></footer>
+
+  <script src="script.js"></script>
+  <script>
+    function iconfunc() {
+      alert('Vamos Adicionar um Funcionário')
+    }
+    function iconsetor() {
+      alert('Vamos Adicionar um Setor')
+    }
+    function iconmanut() {
+      alert('Vamos Adicionar uma Manutenção')
+    }
+
+
+  </script>
+</body>
+</html>

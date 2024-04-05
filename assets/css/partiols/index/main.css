@@ -1,0 +1,56 @@
+main {
+  width: 100%;
+}
+p {
+  width: 100%;
+  border: 0.1rem solid;
+  text-align: center;
+}
+span {
+  color: red;
+}
+
+select,
+input,
+p {
+  width: 100%;
+  padding: 0.5rem;
+  outline: 0.1rem solid #ccc;
+  border: none;
+  border-radius: 0.4rem;
+}
+
+.fa-solid{
+  cursor: pointer;
+}
+.fa-solid:hover{
+  color: red;
+}
+/*
+PRIMEIRA PARTE - FORMULÁRIO - INÍCIO
+*/
+.form-toDo {
+  max-width: 144rem;
+  margin: auto;
+  height: 20rem;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: .4rem;
+}
+
+.form-toDo .grupo {
+  min-height: 6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 1rem;
+}
+
+
+/*
+PRIMEIRA PARTE - FORMULÁRIO - FIM
+*/
