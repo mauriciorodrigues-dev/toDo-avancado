@@ -20,27 +20,21 @@
         <div class="grupo">
           <label for="nome_func"
             >Funcionário
-            <i onclick="iconfunc()" class="fa-solid fa-user-plus"></i
+            <i onclick="iconFunc()" class="fa-solid fa-user-plus"></i
           ></label>
-          <select name="nome_func" id="nome_func">
-            <option selected disabled>Nome do funcionário</option>
-          </select>
+          <select name="nome_func" id="nome_func"></select>
         </div>
         <div class="grupo">
           <label for="nome_setor"
-            >Setor <i onclick="iconsetor()" class="fa-solid fa-layer-group"></i
+            >Setor <i onclick="iconSetor()" class="fa-solid fa-layer-group"></i
           ></label>
-          <select name="nome_setor" id="nome_setor">
-            <option selected disabled>Setor</option>
-          </select>
+          <select name="nome_setor" id="nome_setor"></select>
         </div>
         <div class="grupo">
           <label for="tarefa"
-            >Tarefa <i onclick="iconmanut()" class="fa-solid fa-gears"></i
+            >Tarefa <i onclick="iconManut()" class="fa-solid fa-gears"></i
           ></label>
-          <select name="tarefa" id="tarefa">
-            <option selected disabled>Tarefa</option>
-          </select>
+          <select name="tarefa" id="tarefa"></select>
         </div>
         <div class="grupo">
           <label for="data">Data Manutenção</label>
@@ -86,20 +80,33 @@
     </dialog>
     <!-- Fim -->
     <!-- Modal Setor -->
+    <dialog id="modalSetor" open>
+      <h1>Cadastro do Setor de Trabalho</h1>
 
+      <h2>Dados do Setor:</h2>
+      <div class="grupo">
+        <label for="setor">Setor*:</label>
+        <input type="text" name="txtSetor" id="setor" required />
+      </div>
+      <button id="btnSetor">Salvar e Fechar</button>
+    </dialog>
     <!-- Fim -->
     <!-- Modal Tarefa -->
+    <dialog id="modalTarefa" open>
+      <h1>Cadastro de Tarefa</h1>
 
+      <h2>Tarefa:</h2>
+      <div class="grupo">
+        <label for="tarefa">Tarefa a ser Executada*:</label>
+        <input type="text" name="txtTarefa" id="tarefa" required />
+      </div>
+      <button id="btnTarefa">Salvar e Fechar</button>
+    </dialog>
     <!-- Fim -->
     <footer></footer>
 
     <script src="script.js"></script>
     <script>
-      // Variáveis relacionadas ao modal
-      const modalFuncionario = document.getElementById("modalFuncionario");
-      const btnAdicionar = document.getElementById("btnAdicionar");
-      const btnSalvarFechar = document.getElementById("btnSalvarFechar");
-
       // Array de objetos com os nomes dos funcionários, setores e tarefas
       const funcionarios = [
         { nome: "Fabiano da Silva", value: "Fabiano da Silva" },
@@ -117,67 +124,105 @@
         { nome: "Manutenção Preventiva", value: "Manutenção Preventiva" },
       ];
 
-      // Função para limpar os options de um select
-      function limparSelect(select) {
-        while (select.firstChild) {
-          select.removeChild(select.firstChild);
+      // Função para definir a opacidade e habilitar/desabilitar eventos de clique em um modal
+      function configurarModal(modal, opacidade, habilitarEventos) {
+        modal.style.opacity = opacidade;
+        modal.style.pointerEvents = habilitarEventos ? "auto" : "none";
+      }
+
+      // Funções para abrir os modais correspondentes aos ícones
+      function iconFunc() {
+        configurarModal(modalFuncionario, "1", true);
+      }
+
+      function iconSetor() {
+        configurarModal(modalSetor, "1", true);
+      }
+
+      function iconManut() {
+        configurarModal(modalTarefa, "1", true);
+      }
+
+      // Funções para fechar os modais e adicionar itens aos arrays correspondentes
+      btnSalvarFechar.addEventListener("click", function () {
+        adicionarItem(funcionarios, "nome", modalFuncionario, "nome_func");
+        configurarModal(modalFuncionario, "0", false);
+      });
+
+      btnSetor.addEventListener("click", function () {
+        adicionarItem(setores, "setor", modalSetor, "nome_setor");
+        configurarModal(modalSetor, "0", false);
+      });
+
+      btnTarefa.addEventListener("click", function () {
+        adicionarItem(tarefas, "tarefa", modalTarefa, "tarefa");
+        configurarModal(modalTarefa, "0", false);
+      });
+
+      // Função genérica para adicionar um item a um array e atualizar o select correspondente
+      function adicionarItem(array, inputId, modal, selectFunc) {
+        const novoItem = document.getElementById(inputId).value;
+
+        if (!array.some((item) => item.nome === novoItem)) {
+          array.push({ nome: novoItem, value: novoItem });
         }
+
+        modal.close();
+        document.getElementById(inputId).value = "";
+        popularSelects(selectFunc);
       }
 
       // Função para popular os selects com os arrays de objetos
-      function popularSelects() {
-        const selectFuncionario = document.getElementById("nome_func");
-        const selectSetor = document.getElementById("nome_setor");
-        const selectTarefa = document.getElementById("tarefa");
+      function popularSelects(selectId) {
+        const select = document.getElementById(selectId);
+        while (select.firstChild) {
+          select.removeChild(select.firstChild);
+        }
 
-        // Limpa os options dos selects
-        limparSelect(selectFuncionario);
-        limparSelect(selectSetor);
-        limparSelect(selectTarefa);
+        let array;
+        switch (selectId) {
+          case "nome_func":
+            array = funcionarios;
+            break;
+          case "nome_setor":
+            array = setores;
+            break;
+          case "tarefa":
+            array = tarefas;
+            break;
+          default:
+            array = [];
+        }
 
-        funcionarios.forEach((funcionario) => {
+        array.forEach((item) => {
           const option = document.createElement("option");
-          option.textContent = funcionario.nome;
-          option.value = funcionario.value;
-          selectFuncionario.appendChild(option);
-        });
-
-        setores.forEach((setor) => {
-          const option = document.createElement("option");
-          option.textContent = setor.nome;
-          option.value = setor.value;
-          selectSetor.appendChild(option);
-        });
-
-        tarefas.forEach((tarefa) => {
-          const option = document.createElement("option");
-          option.textContent = tarefa.nome;
-          option.value = tarefa.value;
-          selectTarefa.appendChild(option);
+          option.textContent = item.nome;
+          option.value = item.value;
+          select.appendChild(option);
         });
       }
 
       // Chamar a função para popular os selects quando a página carregar
-      window.onload = popularSelects;
+      window.onload = function () {
+        popularSelects("nome_func");
+        popularSelects("nome_setor");
+        popularSelects("tarefa");
+      };
 
       // Adicionar evento de clique ao botão "Adicionar Tarefa"
       btnAdicionar.addEventListener("click", adicionarTarefa);
 
       // Função para adicionar tarefa à tabela
       function adicionarTarefa() {
-        // Obter os valores dos campos do formulário
         const funcionario = document.getElementById("nome_func").value;
         const setor = document.getElementById("nome_setor").value;
         const tarefa = document.getElementById("tarefa").value;
         const dataManutencao =
           document.querySelector('input[type="date"]').value;
         const horaOrcada = document.getElementById("hora_orc").value;
-
-        // Formatando a data para o formato DD/MM/AAAA
         const partesData = dataManutencao.split("-");
         const dataFormatada = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
 
-        // Criar uma nova linha na tabela
         const novaLinha = document.createElement("tr");
         novaLinha.innerHTML = `
     <td>${funcionario}</td>
@@ -192,38 +237,9 @@
       <button class="delete"><i class="fa-solid fa-trash-can"></i></button>
     </td>
   `;
-
-        // Adicionar a nova linha à tabela
         const tbody = document.getElementById("tBodyManut");
         tbody.appendChild(novaLinha);
       }
-
-      // Adicionar evento de clique ao botão "Salvar e Fechar"
-      btnSalvarFechar.addEventListener("click", function () {
-        // Obtém o valor inserido no campo de nome
-        const nomeFuncionario = document.getElementById("nome").value;
-
-        // Adiciona o funcionário ao array funcionarios se ele não existir
-        if (
-          !funcionarios.some(
-            (funcionario) => funcionario.nome === nomeFuncionario
-          )
-        ) {
-          funcionarios.push({
-            nome: nomeFuncionario,
-            value: nomeFuncionario,
-          });
-        }
-
-        // Fecha o modal
-        modalFuncionario.close();
-
-        // Limpa o campo de nome
-        document.getElementById("nome").value = "";
-
-        // Atualiza os selects com os novos funcionários
-        popularSelects();
-      });
     </script>
   </body>
 </html>

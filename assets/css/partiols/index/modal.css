@@ -7,9 +7,19 @@ dialog{
   box-shadow: .2rem .2rem 5rem 1rem  rgba(0,0,0,.3);
   display: grid;
   place-content: center;
+  position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
 }
 
 dialog h1{
   border-bottom: .1rem solid #ccc;
   margin-bottom: 1rem;
+}
+
+#modalFuncionario,
+#modalSetor,
+#modalTarefa {
+    opacity: 0;
+    transition: opacity 0.5s ease; /* Transição suave */
+    pointer-events: none; /* Desabilita eventos de clique no modal quando a opacidade é 0 */
 }
